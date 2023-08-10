@@ -40,14 +40,14 @@ class Player(GameSprite):
 
 
 
-leftPlayer = Player("blue-neon-button-glowing-neon-button-png-removebg-preview.png", 0, 200, 5, 65 , 150)
-rightPlayer = Player("blue-neon-button-glowing-neon-button-png-removebg-preview.png",700, 200, 5, 65, 150 )
+leftPlayer = Player("neon-blue-rectangle-banner-neon-rectangle-png.jpg", 0, 200, 5, 65 , 150)
+rightPlayer = Player("neon-red-rectangle-banner-neon-rectangle-png.jpg",700, 200, 5, 65, 150 )
 isRunning = True
 while isRunning:
     for e in event.get():
         if e.type == QUIT:
             isRunning = False
-    window.fill((7, 91, 176))
+    window.fill((0, 0, 0))
     leftPlayer.reset()
     rightPlayer.reset()
 
