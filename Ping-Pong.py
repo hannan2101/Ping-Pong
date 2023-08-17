@@ -1,12 +1,15 @@
 from pygame import *
 import time as t
 from pygame import mixer
-
 mixer.init()
-
-window = display.set_mode((750, 500))
-display.set_caption("Ping-Pong")
 clock = time.Clock()
+window = display.set_mode((750, 500))
+
+#Icon and Caption
+display.set_caption("Ping-Pong")
+icon = image.load('e.png')
+display.set_icon(icon)
+
 font.init()
 font = font.Font(None, 30)
 lscore = 0
@@ -32,7 +35,7 @@ class GameSprite(sprite.Sprite):
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
-
+#Players attributes
 class Player(GameSprite):
     def update_l(self):
         keys_pressed = key.get_pressed()
@@ -46,6 +49,8 @@ class Player(GameSprite):
            rightPlayer.rect.y -= rightPlayer.speed
         if keys_pressed[K_DOWN] and rightPlayer.rect.y + leftPlayer.rect.height < 500:
            rightPlayer.rect.y += rightPlayer.speed
+
+#Ball attributes 
 class Ball(GameSprite):
     def update_ball(self):
         global dx
@@ -83,16 +88,18 @@ class Ball(GameSprite):
             
         
  
-ball = Ball("e.png", 300, 200, 1, 50, 50)
-dx = 6
+dx = 8
 #speed of ball in x direction
-dy = 6
+dy = 8
 #speed of ball in y direction
 
+ball = Ball("e.png", 300, 200, 1, 50, 50)
 leftPlayer = Player("neon-blue-rectangle-banner-neon-rectangle-png.jpg", -15, 200, 5, 65 , 150)
 rightPlayer = Player("neon-red-rectangle-banner-neon-rectangle-png.jpg",700, 200, 5, 65, 150 )
 isRunning = True
 start_time = t.time()
+
+#Gameloop
 while isRunning:
     for e in event.get():
         if e.type == QUIT:
