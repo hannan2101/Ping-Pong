@@ -77,9 +77,9 @@ class Ball(GameSprite):
         
  
 ball = Ball("e.png", 300, 200, 1, 50, 50)
-dx = 3
+dx = 6
 #speed of ball in x direction
-dy = 3
+dy = 6
 #speed of ball in y direction
 
 leftPlayer = Player("neon-blue-rectangle-banner-neon-rectangle-png.jpg", -15, 200, 5, 65 , 150)
