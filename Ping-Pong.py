@@ -1,8 +1,15 @@
 from pygame import *
+import time as t
 
 window = display.set_mode((750, 500))
-
+display.set_caption("Ping-Pong")
 clock = time.Clock()
+font.init()
+font = font.Font(None, 30)
+lscore = 0
+rscore = 0
+leftScore = font.render("Player 1: 0", True, (0, 0, 255))
+rightScore = font.render("Player 2: 0", True, (255, 0, 0))
 
 
 class GameSprite(sprite.Sprite):
@@ -36,13 +43,49 @@ class Player(GameSprite):
            rightPlayer.rect.y -= rightPlayer.speed
         if keys_pressed[K_DOWN] and rightPlayer.rect.y + leftPlayer.rect.height < 500:
            rightPlayer.rect.y += rightPlayer.speed
+class Ball(GameSprite):
+    def update_ball(self):
+        global dx
+        global dy
+        self.rect.y -= dy
+        self.rect.x -= dx
+        self.checkPoint()
+        if ball.rect.y <= 0 or ball.rect.y +50 >= 500:
+            dy *= -1
+        if sprite.collide_rect(leftPlayer,ball) or sprite.collide_rect(rightPlayer,ball):
+            dx *= -1
 
+        
 
+    def checkPoint(self):
+       global start_time
+       global lscore
+       global rscore
+       global leftScore
+       global rightScore
+       if self.rect.x < 0 or self.rect.right > 750:
+           if self.rect.x < 0:
+               rscore += 1
+           else:
+               lscore += 1
+           self.rect.x = 300
+           self.rect.y = 250
+           leftScore = font.render("Player 1: " + str(lscore), True, (0, 0, 255))
+           rightScore = font.render("Player 2: " + str(rscore), True, (255, 0, 0))
+           start_time = t.time()
+            
+        
+ 
+ball = Ball("e.png", 300, 200, 1, 50, 50)
+dx = 3
+#speed of ball in x direction
+dy = 3
+#speed of ball in y direction
 
-
-leftPlayer = Player("neon-blue-rectangle-banner-neon-rectangle-png.jpg", 0, 200, 5, 65 , 150)
+leftPlayer = Player("neon-blue-rectangle-banner-neon-rectangle-png.jpg", -15, 200, 5, 65 , 150)
 rightPlayer = Player("neon-red-rectangle-banner-neon-rectangle-png.jpg",700, 200, 5, 65, 150 )
 isRunning = True
+start_time = t.time()
 while isRunning:
     for e in event.get():
         if e.type == QUIT:
@@ -50,10 +93,15 @@ while isRunning:
     window.fill((0, 0, 0))
     leftPlayer.reset()
     rightPlayer.reset()
-
+    ball.reset()
+    if t.time() - start_time >= 3:
+        ball.update()
     leftPlayer.update_l()
     rightPlayer.update_r()
+    ball.update_ball()
 
+    window.blit(leftScore, (150, 50))
+    window.blit(rightScore, (300, 50)) 
 
     display.update()
     clock.tick(40) 
