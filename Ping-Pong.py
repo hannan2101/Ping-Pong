@@ -1,5 +1,8 @@
 from pygame import *
 import time as t
+from pygame import mixer
+
+mixer.init()
 
 window = display.set_mode((750, 500))
 display.set_caption("Ping-Pong")
@@ -52,8 +55,12 @@ class Ball(GameSprite):
         self.checkPoint()
         if ball.rect.y <= 0 or ball.rect.y +50 >= 500:
             dy *= -1
+            Collsion_sound = mixer.Sound('bounce.wav')
+            Collsion_sound.play()
         if sprite.collide_rect(leftPlayer,ball) or sprite.collide_rect(rightPlayer,ball):
             dx *= -1
+            Collsion_sound = mixer.Sound('bounce.wav')
+            Collsion_sound.play()
 
         
 
