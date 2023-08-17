@@ -7,7 +7,7 @@ window = display.set_mode((750, 500))
 
 #Icon and Caption
 display.set_caption("Ping-Pong")
-icon = image.load('e.png')
+icon = image.load('Ball.png')
 display.set_icon(icon)
 
 font.init()
@@ -93,9 +93,9 @@ dx = 8
 dy = 8
 #speed of ball in y direction
 
-ball = Ball("e.png", 300, 200, 1, 50, 50)
-leftPlayer = Player("neon-blue-rectangle-banner-neon-rectangle-png.jpg", -15, 200, 5, 65 , 150)
-rightPlayer = Player("neon-red-rectangle-banner-neon-rectangle-png.jpg",700, 200, 5, 65, 150 )
+ball = Ball("Ball.png", 300, 200, 1, 50, 50)
+leftPlayer = Player("LeftPlayer.jpg", -15, 200, 5, 65 , 150)
+rightPlayer = Player("RightPlayer.jpg",700, 200, 5, 65, 150 )
 isRunning = True
 start_time = t.time()
 
